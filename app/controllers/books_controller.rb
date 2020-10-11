@@ -1,39 +1,39 @@
 class BooksController < ApplicationController
 
   def index
-  	@books = BookReview.all
+  	@books = Book.all
     @new_book = new
   end
 
   def show
-    @book = BookReview.find(params[:id])
+    @book = Book.find(params[:id])
   end
 
   def create
-    book_review = BookReview.new(book_params)
-    if book_review.save
-      redirect_to show_books_path(book_review.id), notice: "Book was successfully created."
+    book = Book.new(book_params)
+    if book.save
+      redirect_to show_books_path(book.id), notice: "Book was successfully created."
     else
-      redirect_to show_books_path(book_review.id), alert: "Book was failure to created."
+      redirect_to show_books_path(book.id), alert: "Book was failure to created."
     end
   end
 
   def edit
-    @book = BookReview.find(params[:id])
+    @book = Book.find(params[:id])
   end
 
   def update
-    book_review = BookReview.find(params[:id])
-    if book_review.update(book_params)
-      redirect_to show_books_path(book_review.id), notice: "Book was successfully updated."
+    book = Book.find(params[:id])
+    if book.update(book_params)
+      redirect_to show_books_path(book.id), notice: "Book was successfully updated."
     else
-      redirect_to show_books_path(book_review.id), alert: "Book was failure to updated."
+      redirect_to show_books_path(book.id), alert: "Book was failure to updated."
     end
   end
 
   def destroy
-    book_review = BookReview.find(params[:id])
-    if book_review.destroy
+    book = Book.find(params[:id])
+    if book.destroy
       redirect_to index_books_path, notice: "Book was successfully destroyed."
     else
       redirect_to index_books_path, alert: "Book was failure to destroyed."
@@ -42,10 +42,10 @@ class BooksController < ApplicationController
 
   private
   def new
-    BookReview.new
+    Book.new
   end
 
   def book_params
-    params.require(:book_review).permit(:title, :body)
+    params.require(:book).permit(:title, :body)
   end
 end
